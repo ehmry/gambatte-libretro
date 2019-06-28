@@ -1,4 +1,7 @@
+ifeq ($(LIBRETRO_COMM_DIR),)
 LIBRETRO_COMM_DIR := $(CORE_DIR)/../libretro-common
+endif
+
 INCFLAGS := -I$(CORE_DIR) -I$(CORE_DIR)/../include -I$(CORE_DIR)/../../common -I$(CORE_DIR)/../../common/resample -I$(CORE_DIR)/../libretro -I$(LIBRETRO_COMM_DIR)/include
 
 ifneq (,$(findstring msvc2003,$(platform)))

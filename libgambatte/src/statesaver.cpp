@@ -274,7 +274,7 @@ public:
 
 static void pushSaver(SaverList::list_t &list, const char *label,
 		void (*save)(omemstream &file, const SaveState &state),
-		void (*load)(imemstream &file, SaveState &state), unsigned labelsize) {
+		void (*load)(imemstream &file, SaveState &state), unsigned char labelsize) {
 	const Saver saver = { label, save, load, labelsize };
 	list.push_back(saver);
 }
@@ -493,12 +493,12 @@ bool StateSaver::loadState(SaveState &state, const void *data) {
    file.ignore(get24(file));
 
    const Array<char> labelbuf(list.maxLabelsize());
-   const Saver labelbufSaver = { labelbuf, 0, 0, list.maxLabelsize() };
+   const Saver labelbufSaver = { labelbuf, 0, 0, (unsigned char)list.maxLabelsize() };
 
    SaverList::const_iterator done = list.begin();
 
    while (file.good() && done != list.end()) {
-      file.getline(labelbuf, list.maxLabelsize(), NUL);
+      file.getline(labelbuf, (unsigned char)list.maxLabelsize(), NUL);
 
       SaverList::const_iterator it = done;
 

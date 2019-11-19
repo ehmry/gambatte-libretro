@@ -577,6 +577,10 @@ CORE_DIR := libgambatte/src
 
 include Makefile.common
 
+ifneq (,$(findstring msvc2003,$(platform)))
+INCFLAGS += -I$(LIBRETRO_COMM_DIR)/include/compat/msvc
+endif
+
 OBJS := $(SOURCES_CXX:.cpp=.o) $(SOURCES_C:.c=.o)
 
 DEFINES := -D__LIBRETRO__ $(PLATFORM_DEFINES) -DHAVE_STDINT_H -DHAVE_INTTYPES_H -DINLINE=inline -DVIDEO_RGB565
